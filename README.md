@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/dmitrysl/jsf.svg?branch=master)](https://travis-ci.org/dmitrysl/jsf)
+
+ 
+ 
 # Glassfish server tips
 asadmin.bat --port [admin_port] undeploy [app]
 
