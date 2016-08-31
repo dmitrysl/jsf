@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dmitrysl/jsf.svg?branch=master)](https://travis-ci.org/dmitrysl/jsf)
+Travis CI [![Build Status](https://travis-ci.org/dmitrysl/jsf.svg?branch=master)](https://travis-ci.org/dmitrysl/jsf)
 
  
  
