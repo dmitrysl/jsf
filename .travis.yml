@@ -7,8 +7,3 @@ script:
     mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize package
 before_script:
   - mysql -e 'create database jsf_test'
-test:
-    adapter: mysql2
-    database: myapp_test
-    username: travis
-    encoding: utf8
