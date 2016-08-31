@@ -27,6 +27,8 @@
     </repositories>
 
     <properties>
+        <travis.ci.env>travis_ci</travis.ci.env>
+
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -494,6 +496,19 @@
             <properties>
                 <build.properties.dir>${project.basedir}</build.properties.dir>
                 <build.environment>build</build.environment>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>travis-ci-env</id>
+            <activation>
+                <property>
+                    <name>!env</name>
+                </property>
+            </activation>
+            <properties>
+                <build.properties.dir>${project.basedir}</build.properties.dir>
+                <build.environment>${travis.ci.env}</build.environment>
             </properties>
         </profile>
 
