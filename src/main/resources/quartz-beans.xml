@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<bean id="qrtz-data-source" class="oracle.ucp.jdbc.PoolDataSourceFactory" factory-method="getPoolDataSource">-->
+        <!--<property name="connectionFactoryClassName" value="oracle.jdbc.pool.OracleDataSource"/>-->
+        <!--<property name="URL" value="jdbc:oracle:thin:@cronos-db.dev:1521:orcl" />-->
+        <!--<property name="user" value="CRONOS_COMMON"/>-->
+        <!--<property name="password" value="cronos_common"/>-->
+        <!--<property name="minPoolSize" value="1" />-->
+        <!--<property name="maxPoolSize" value="#{ T(java.lang.Integer).MAX_VALUE }" />-->
+        <!--<property name="initialPoolSize" value="1" />-->
+        <!--<property name="connectionWaitTimeout" value="120" />-->
+        <!--<property name="inactiveConnectionTimeout" value="600" />-->
+        <!--<property name="validateConnectionOnBorrow" value="true" />-->
+        <!--<property name="connectionProperties">-->
+            <!--<value>-->
+                <!--oracle.jdbc.defaultNChar=true-->
+            <!--</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean name="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">-->
+        <!--<property name="autoStartup" value="true"/>-->
+        <!--<property name="startupDelay" value="20"/>-->
+        <!--<property name="configLocation" value="classpath:quartz.properties"/>-->
+        <!--<property name="applicationContextSchedulerContextKey">-->
+            <!--<value>applicationContext</value>-->
+        <!--</property>-->
+        <!--<property name="dataSource" ref="qrtz-data-source" />-->
+        <!--<property name="schedulerName" value="cronos-scheduler"/>-->
+    <!--</bean>-->
+
+</beans>

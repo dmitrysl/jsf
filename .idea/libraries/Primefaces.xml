@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Primefaces" type="jsf-primefaces">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/primefaces-6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/Install/Java/javaEE/jsf/libs/primefaces-6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

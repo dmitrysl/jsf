@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+
+<h:body>
+    <h:outputLabel value="Hello, world"/>
+    <h1>Listing Customer Items</h1>
+    <h:form styleClass="jsfcrud_list_form" style=" margin-bottom: 20px;">
+        <h:outputText escape="false" value="(No Customer Items Found)" rendered="#{exampleCtrl.pagingInfo.itemCount == 0}" />
+        <br />
+        <h:panelGroup rendered="#{exampleCtrl.pagingInfo.itemCount > 0}">
+            <h:dataTable value="#{exampleCtrl.customerItems}" var="item" border="0" cellpadding="2" cellspacing="0"
+                         rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border: solid 1px;">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Customer Name"/>
+                    </f:facet>
+                    <h:outputText value=" #{item}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText escape="false" value="Actions&nbsp;"/>
+                    </f:facet>
+                    <h:commandLink value="Show Details" action="#{exampleCtrl.detailSetup}">
+                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
+                    </h:commandLink>
+                    <!--<h:outputText value=" "/>-->
+                    <!--<h:commandLink value="Edit" action="#{customer.editSetup}">-->
+                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
+                    <!--</h:commandLink>-->
+                    <!--<h:outputText value=" "/>-->
+                    <!--<h:commandLink value="Destroy" action="#{customer.destroy}">-->
+                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
+                    <!--</h:commandLink>-->
+                </h:column>
+            </h:dataTable>
+            <div style="margin-top: 10px;">
+                <h:outputText value="Item #{exampleCtrl.pagingInfo.firstItem + 1}..#{exampleCtrl.pagingInfo.lastItem} of #{exampleCtrl.pagingInfo.itemCount}"/>&nbsp;
+
+                <h:commandLink action="#{exampleCtrl.prev}" value="Previous #{exampleCtrl.pagingInfo.batchSize}"
+                               rendered="#{exampleCtrl.getIsPreviousVisible()}"/>&nbsp;
+                <h:commandLink action="#{exampleCtrl.next}" value="Next #{exampleCtrl.pagingInfo.batchSize}"
+                               rendered="#{exampleCtrl.getIsNextVisible()}"/>&nbsp;
+                <h:commandLink action="#{exampleCtrl.next}" value="Remaining #{exampleCtrl.pagingInfo.itemCount - exampleCtrl.pagingInfo.lastItem}"
+                               rendered="#{exampleCtrl.getIsRemainingVisible()}"/>
+            </div>
+        </h:panelGroup>
+    </h:form>
+    <f:view>
+        <p:spinner />
+        <h:form styleClass="jsfcrud_list_form">
+            <h:selectBooleanCheckbox id="isSelected" value="#{helloWorld.isSelected}"  >
+                <f:ajax listener="#{helloWorld.updateIsSelected}" render="@form" />
+            </h:selectBooleanCheckbox>
+
+            <h:outputText value=" test text"/>
+            <h:outputText value=" is selected: #{helloWorld.isSelected}"/>
+            <h:outputLabel value="Hello, world"/>
+
+            <p:panel header="Test panel" style="margin-top: 20px;">
+                #{helloWorld.getMessage()}-!
+            </p:panel>
+
+            <p:panel header="Test panel 2" style="margin-top: 20px;">
+                #{helloWorld.getMessageFromHelper()}
+            </p:panel>
+
+            <h:commandLink value="Go to index" action="welcome" immediate="true" />
+        </h:form>
+    </f:view>
+</h:body>
+</html>
