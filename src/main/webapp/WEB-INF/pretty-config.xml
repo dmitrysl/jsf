@@ -8,10 +8,14 @@
         <view-id value="/index.xhtml" />
     </url-mapping>
 
-    <!--<url-mapping id="example-list">-->
-        <!--<pattern value="/example/list" />-->
-        <!--<view-id value="/example/list.xhtml" />-->
-    <!--</url-mapping>-->
+    <url-mapping id="login">
+        <pattern value="/auth/login" />
+        <view-id value="/pages/login.xhtml" />
+    </url-mapping>
+    <url-mapping id="admin">
+        <pattern value="/admin" />
+        <view-id value="/pages/admin/admin.xhtml" />
+    </url-mapping>
 
     <!--<rewrite match="/example/list.xhtml" substitute="/example/list" redirect="301"/>-->
 

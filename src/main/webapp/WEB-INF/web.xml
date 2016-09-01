@@ -16,6 +16,21 @@
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>client</param-value>
     </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LfpFSkTAAAAAEqxDFeIIjqvQaZYfhF8jbi8Co3a</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LfpFSkTAAAAAOcPZ_0o71WWrcIVwpc1ttTHTiD7</param-value>
+    </context-param>
+
+    <!--#{loggedInUser.preferences.theme}-->
     <!--Production
         Development
         UnitTest
@@ -23,7 +38,7 @@
         Extension-->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Production</param-value>
+        <param-value>Development</param-value>
     </context-param>
 
     <context-param>
@@ -38,21 +53,39 @@
         <param-value>jsf</param-value>
     </context-param>
 
+    <filter>
+        <filter-name>static-content</filter-name>
+        <filter-class>com.test.javaee.jsf.filter.StaticContentFilter</filter-class>
+        <init-param>
+            <param-name>resources</param-name>
+            <param-value>/css/**,/js/**,/img/**,/assets/**,/favicon.ico</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>static-content</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.test.javaee.jsf.filter.AuthorizationFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <listener>
-        <listener-class>
-            org.springframework.web.context.ContextLoaderListener
-        </listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
     <listener>
         <listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletRequestListener</listener-class>
     </listener>
-
     <listener>
         <listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletContextListener</listener-class>
     </listener>
@@ -71,6 +104,8 @@
         <dispatcher>ASYNC</dispatcher>
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+
+
 
     <!--<context-param>-->
         <!--<param-name>quartz:shutdown-on-unload</param-name>-->

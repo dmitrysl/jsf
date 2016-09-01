@@ -67,6 +67,11 @@
             <artifactId>primefaces</artifactId>
             <version>6.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
 
         <!--<dependency>-->
             <!--<groupId>javax.inject</groupId>-->
@@ -273,6 +278,14 @@
                     <exclude>${resources.properties.files}</exclude>
                     <exclude>${resources.spring.app.context}</exclude>
                 </excludes>
+            </resource>
+            <resource>
+                <directory>${resources.dir}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>${resources.properties.files}</include>
+                    <include>${resources.spring.app.context}</include>
+                </includes>
             </resource>
             <resource>
                 <directory>${db.migration.dir}</directory>

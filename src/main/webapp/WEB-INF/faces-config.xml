@@ -11,11 +11,21 @@
     </application>
 
     <navigation-rule>
+        <from-view-id>/pages/login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>welcome</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/pages/admin/admin.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/admin/admin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
@@ -30,6 +40,33 @@
             <from-outcome>welcome</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>welcome</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/pages/admin/admin.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

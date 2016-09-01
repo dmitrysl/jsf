@@ -8,25 +8,85 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pm="http://primefaces.org/mobile">
     <h:head>
-        <link href="/css/core.css" rel="stylesheet" />
+        <link href="/jsf/css/core.css" rel="stylesheet" />
+        <link href="/jsf/css/main.css" rel="stylesheet" />
     </h:head>
 
     <h:body>
+        <h:panelGroup layout="block">
+            <h:form style="display: block; height: 63px;">
+                <div class="navigation-content">
+                    <div class="navigation-bar">
+                        <div class="menu-btn">
+
+                        </div>
+                        <div class="nafigation-left">
+
+                        </div>
+                        <div class="navigation-right">
+                            <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
+                                <div class="menu-item"><a class="menuLink" href="">About</a></div>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
+                                <div class="menu-item"><a class="menuLink" href="">Log In</a></div>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
+                                <div class="menu-item"><h:outputText escape="false" value="#{login.user}"/></div>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
+                                <div class="menu-item"><h:commandLink action="#{login.logout}" value="Logout"></h:commandLink></div>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
+                                <div class="menu-item"><a class="menuLink" href="">Sign Up</a></div>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </h:panelGroup>
 
         <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
 
         <h:form>
             <h:commandLink action="#{exampleCtrl.listSetup}" value="Show All Example Items"/>
-            <br/>
-            <br/>
-            <h:inputText id="firstName" value="#{user.firstName}"></h:inputText>
-            <h:inputText id="lastName" value="#{user.lastName}"></h:inputText>
-            <h:inputText id="email" value="#{user.email}"></h:inputText>
-            <h:inputText id="role" value="#{user.role}"></h:inputText>
-            <h:inputSecret id="password" value="#{user.password}"></h:inputSecret>
-            <p:password id="passwordConfirm"  value="#{user.passwordConfirm}"></p:password>
-
-            <h:commandButton action="#{userService.addUser(user)}" value="Add Person"></h:commandButton>
+        </h:form>
+        <br/>
+        <br/>
+        <h:form id="register" prependId="false">
+            <p:resizable>
+                <p:outputLabel>Register new user</p:outputLabel>
+                <h:messages for="RegisterGroupPanel" errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <h:panelGrid columns="2" id="RegisterGroupPanel" style="border: none;" border="0">
+                    <f:event listener="#{user.validatePassword}" type="postValidate" />
+                    <p:inputText id="firstName" placeholder="First Name" required="true" value="#{user.firstName}">
+                        <f:validateLength minimum="3" maximum="30" />
+                    </p:inputText>
+                    <h:message for="firstName" style="color:red" />
+                    <p:inputText id="lastName" placeholder="Last Name" required="true" value="#{user.lastName}">
+                        <f:validateLength minimum="3" maximum="30" />
+                    </p:inputText>
+                    <h:message for="lastName" style="color:red" />
+                    <p:inputText id="email" placeholder="Email" required="true" value="#{user.email}">
+                        <f:validateLength minimum="5" maximum="50" />
+                    </p:inputText>
+                    <h:message for="email" style="color:red" />
+                    <p:inputText id="role" placeholder="Role" value="#{user.role}" required="true">
+                    </p:inputText>
+                    <h:message for="role" style="color:red" />
+                    <p:password id="password" placeholder="Password" required="true" value="#{user.password}">
+                        <!--<f:validator validatorId="passwordValidator" />-->
+                        <!--<f:attribute name="passwordConfirm" value="#{passwordConfirm}" />-->
+                        <f:validateLength minimum="6" maximum="40" />
+                    </p:password>
+                    <p:password id="passwordConfirm" placeholder="Confirm Password" required="true" value="#{user.passwordConfirm}">
+                                <!--binding="#{passwordConfirm}"-->
+                                <!--requiredMessage="Please enter confirm password">-->
+                        <f:validateLength minimum="6" maximum="40" />
+                    </p:password>
+                    <h:message for="passwordConfirm" style="color:red" />
+                </h:panelGrid>
+                <p:commandButton action="#{exampleCtrl.save()}" value="Add User" ajax="false"></p:commandButton>
+            </p:resizable>
         </h:form>
 
         <h:panelGroup rendered="#{!empty userService.getUsers()}">
@@ -34,16 +94,15 @@
                 <tr>
                     <th width="80">Person ID</th>
                     <th width="120">Person Name</th>
-                    <th width="120">Person Country</th>
+                    <th width="200">Person Email</th>
+                    <th width="80">Role</th>
                 </tr>
                 <ui:repeat value="${userService.getUsers()}" var="user">
                     <tr>
                         <td>${user.id}</td>
                         <td>${user.firstName}</td>
-                        <td>${user.lastName}</td>
                         <td>${user.email}</td>
                         <td>${user.role}</td>
-                        <td>${user.password}</td>
                     </tr>
                 </ui:repeat>
             </table>

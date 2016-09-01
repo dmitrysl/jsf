@@ -21,21 +21,29 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-//    public void setSessionFactory(SessionFactory sf){
-//        this.sessionFactory = sf;
-//    }
+    @Override
+    public boolean isEmailAndPasswordValid(String email, String password) {
+        return this.sessionFactory.getCurrentSession().createQuery("select 1 from User u where u.email = :email and u.password = :pass")
+                .setParameter("email", email)
+                .setParameter("pass", password)
+                .uniqueResult() != null;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<User> getUsers() {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = getSession();
         List<User> users = session.createQuery("from User").list();
         return users;
     }
 
+    private Session getSession() {
+        return this.sessionFactory.getCurrentSession();
+    }
+
     @Override
     public User getUserById(int id) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = getSession();
         User user = session.createQuery("select u from User u where u.id = :id", User.class)
                 .setParameter("id", id)
                 .uniqueResult();
@@ -44,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmailAndPass(String email, String pass) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = getSession();
         User user = session.createQuery("select u from User u where u.email = :email and u.password = :pass", User.class)
                 .setParameter("email", email)
                 .setParameter("pass", pass)
@@ -54,12 +62,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(User user) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(user);
+        Session session = getSession();
+        session.save(user);
+        session.flush();
     }
 
     @Override
     public void removeUser(int id) {
 
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return getSession().createQuery("select u from User u where u.email = :email", User.class)
+                .setParameter("email", email)
+                .uniqueResult();
     }
 }

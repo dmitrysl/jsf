@@ -2,12 +2,18 @@ package com.test.javaee.jsf.service;
 
 import com.test.javaee.jsf.dao.UserDao;
 import com.test.javaee.jsf.model.User;
+import com.test.javaee.jsf.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,7 +21,7 @@ import java.util.List;
  * Created by DmitriyS on 8/31/2016.
  */
 @Service("userService")
-@ManagedBean(name="userService", eager = true)
+@ManagedBean(name="userService")
 @SessionScoped
 public class UserServiceImpl implements UserService, Serializable {
 
@@ -23,6 +29,22 @@ public class UserServiceImpl implements UserService, Serializable {
 
     @Autowired
     private UserDao userDao;
+
+    @PostConstruct
+    public void init() {
+        if (userDao != null) return;
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        ServletContext servletContext = (ServletContext) externalContext.getContext();
+        WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext)
+                .getAutowireCapableBeanFactory()
+                .autowireBean(this);
+    }
+
+    @Transactional
+    @Override
+    public boolean isEmailAndPasswordValid(String email, String password) {
+        return userDao.isEmailAndPasswordValid(email, SecurityUtils.md5(password));
+    }
 
     @Transactional
     @Override
@@ -33,6 +55,13 @@ public class UserServiceImpl implements UserService, Serializable {
     @Transactional
     @Override
     public void addUser(User user) {
+        user.setPassword(SecurityUtils.md5(user.getPassword()));
         userDao.addUser(user);
+    }
+
+    @Transactional
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 }

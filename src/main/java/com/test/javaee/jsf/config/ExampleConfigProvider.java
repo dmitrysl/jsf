@@ -20,6 +20,8 @@ public class ExampleConfigProvider extends HttpConfigurationProvider {
         return ConfigurationBuilder.begin()
 //                .addRule(TrailingSlash.remove())
                 .addRule(Join.path("/").to("/index.xhtml").withInboundCorrection())
+                .addRule(Join.path("/auth/login").to("/pages/login.xhtml").withInboundCorrection())
+                .addRule(Join.path("/admin").to("/pages/admin/admin.xhtml").withInboundCorrection())
                 .addRule(Join.path("/example/list").to("/pages/example/list.xhtml").withInboundCorrection())
                 .addRule(Join.path("/example/id/{id}").to("/pages/example/details.xhtml").withInboundCorrection()).where("id").matches("[0-9]+")
                 ;
