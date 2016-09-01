@@ -516,7 +516,8 @@
             <id>travis-ci-env</id>
             <activation>
                 <property>
-                    <name>!env</name>
+                    <name>env</name>
+                    <value>travis_ci</value>
                 </property>
             </activation>
             <properties>
