@@ -3,9 +3,10 @@ env:
   - DB=mysql
 jdk:
   - oraclejdk8
+install: true
+before_script:
+  - mysql -e 'create database test_jsf'
 script:
   - mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize flyway:init
   - mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize flyway:migrate
   - mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize package
-before_script:
-  - mysql -e 'create database test_jsf'
