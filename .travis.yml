@@ -9,5 +9,4 @@ before_script:
 script:
   - rm config/build.properties && cd config && ln -s travis_ci.properties build.properties && cd ..
   - mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize flyway:init
-  - mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize flyway:migrate
   - mvn --errors --strict-checksums --fail-fast -Dfile.encoding=UTF-8 clean -P travis-ci-env initialize package
