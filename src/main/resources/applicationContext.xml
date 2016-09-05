@@ -105,7 +105,7 @@
     <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" >
         <beans:property name="basenames">
             <beans:list>
-                <beans:value>messages.messages</beans:value>
+                <beans:value>messages.messages_en</beans:value>
             </beans:list>
         </beans:property>
     </beans:bean>

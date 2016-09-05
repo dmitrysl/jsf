@@ -1,114 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <link href="/jsf/css/core.css" rel="stylesheet" />
-    <link href="/jsf/css/main.css" rel="stylesheet" />
-</h:head>
-<h:body>
-    <f:loadBundle basename="messages.messages" var="res" />
-    <h:panelGroup layout="block">
-        <h:form style="display: block; height: 63px;">
-            <h:outputLabel value="#{res.test.label}"></h:outputLabel>
-            <div class="navigation-content">
-                <div class="navigation-bar">
-                    <div class="menu-btn">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/base_template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
-                    </div>
-                    <div class="nafigation-left">
+    <ui:define name="container">
+        <f:loadBundle basename="messages.messages" var="res" />
 
-                    </div>
-                    <div class="navigation-right">
-                        <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><a class="menuLink" href="">About</a></div>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><a class="menuLink" href="">Log In</a></div>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><h:outputText escape="false" value="#{login.user}"/></div>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><h:commandLink action="#{login.logout}" value="Logout"></h:commandLink></div>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><a class="menuLink" href="">Sign Up</a></div>
-                        </h:panelGroup>
-                    </div>
+        <h:outputLabel value="Hello, world"/>
+        <h1>Listing Customer Items</h1>
+
+        <h:form styleClass="jsfcrud_list_form" style=" margin-bottom: 20px;">
+            <h:outputText escape="false" value="(No Customer Items Found)" rendered="#{exampleCtrl.pagingInfo.itemCount == 0}" />
+            <br />
+            <h:panelGroup rendered="#{exampleCtrl.pagingInfo.itemCount > 0}">
+                <h:dataTable value="#{exampleCtrl.customerItems}" var="item" border="0" cellpadding="2" cellspacing="0"
+                             rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border: solid 1px;">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Customer Name"/>
+                        </f:facet>
+                        <h:outputText value=" #{item}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText escape="false" value="Actions"/>
+                        </f:facet>
+                        <h:commandLink value="Show Details" action="#{exampleCtrl.detailSetup}">
+                            <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
+                        </h:commandLink>
+                        <h:outputText value=" "/>
+                        <!--<h:commandLink value="Edit" action="#{customer.editSetup}">-->
+                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
+                        <!--</h:commandLink>-->
+                        <!--<h:outputText value=" "/>-->
+                        <!--<h:commandLink value="Destroy" action="#{customer.destroy}">-->
+                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
+                        <!--</h:commandLink>-->
+                    </h:column>
+                </h:dataTable>
+                <div style="margin-top: 10px;">
+                    <h:outputText value="Item #{exampleCtrl.pagingInfo.firstItem + 1}..#{exampleCtrl.pagingInfo.lastItem} of #{exampleCtrl.pagingInfo.itemCount}"/>
+
+                    <h:commandLink action="#{exampleCtrl.prev}" value="Previous #{exampleCtrl.pagingInfo.batchSize}"
+                                   rendered="#{exampleCtrl.getIsPreviousVisible()}"/>
+                    <h:commandLink action="#{exampleCtrl.next}" value="Next #{exampleCtrl.pagingInfo.batchSize}"
+                                   rendered="#{exampleCtrl.getIsNextVisible()}"/>
+                    <h:commandLink action="#{exampleCtrl.next}" value="Remaining #{exampleCtrl.pagingInfo.itemCount - exampleCtrl.pagingInfo.lastItem}"
+                                   rendered="#{exampleCtrl.getIsRemainingVisible()}"/>
                 </div>
-            </div>
+            </h:panelGroup>
         </h:form>
-    </h:panelGroup>
+        <f:view>
+            <p:spinner />
+            <h:form styleClass="jsfcrud_list_form">
+                <h:selectBooleanCheckbox id="isSelected" value="#{helloWorld.isSelected}"  >
+                    <f:ajax listener="#{helloWorld.updateIsSelected}" render="@form" />
+                </h:selectBooleanCheckbox>
 
-    <h:outputLabel value="Hello, world"/>
-    <h1>Listing Customer Items</h1>
-    <h:form styleClass="jsfcrud_list_form" style=" margin-bottom: 20px;">
-        <h:outputText escape="false" value="(No Customer Items Found)" rendered="#{exampleCtrl.pagingInfo.itemCount == 0}" />
-        <br />
-        <h:panelGroup rendered="#{exampleCtrl.pagingInfo.itemCount > 0}">
-            <h:dataTable value="#{exampleCtrl.customerItems}" var="item" border="0" cellpadding="2" cellspacing="0"
-                         rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border: solid 1px;">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Customer Name"/>
-                    </f:facet>
-                    <h:outputText value=" #{item}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText escape="false" value="Actions&nbsp;"/>
-                    </f:facet>
-                    <h:commandLink value="Show Details" action="#{exampleCtrl.detailSetup}">
-                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
-                    </h:commandLink>
-                    <h:outputText value=" "/>
-                    <!--<h:commandLink value="Edit" action="#{customer.editSetup}">-->
-                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
-                    <!--</h:commandLink>-->
-                    <!--<h:outputText value=" "/>-->
-                    <!--<h:commandLink value="Destroy" action="#{customer.destroy}">-->
-                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
-                    <!--</h:commandLink>-->
-                </h:column>
-            </h:dataTable>
-            <div style="margin-top: 10px;">
-                <h:outputText value="Item #{exampleCtrl.pagingInfo.firstItem + 1}..#{exampleCtrl.pagingInfo.lastItem} of #{exampleCtrl.pagingInfo.itemCount}"/>&nbsp;
+                <h:outputText value=" test text"/>
+                <h:outputText value=" is selected: #{helloWorld.isSelected}"/>
+                <h:outputLabel value="Hello, world"/>
 
-                <h:commandLink action="#{exampleCtrl.prev}" value="Previous #{exampleCtrl.pagingInfo.batchSize}"
-                               rendered="#{exampleCtrl.getIsPreviousVisible()}"/>&nbsp;
-                <h:commandLink action="#{exampleCtrl.next}" value="Next #{exampleCtrl.pagingInfo.batchSize}"
-                               rendered="#{exampleCtrl.getIsNextVisible()}"/>&nbsp;
-                <h:commandLink action="#{exampleCtrl.next}" value="Remaining #{exampleCtrl.pagingInfo.itemCount - exampleCtrl.pagingInfo.lastItem}"
-                               rendered="#{exampleCtrl.getIsRemainingVisible()}"/>
-            </div>
-        </h:panelGroup>
-    </h:form>
-    <f:view>
-        <p:spinner />
-        <h:form styleClass="jsfcrud_list_form">
-            <h:selectBooleanCheckbox id="isSelected" value="#{helloWorld.isSelected}"  >
-                <f:ajax listener="#{helloWorld.updateIsSelected}" render="@form" />
-            </h:selectBooleanCheckbox>
+                <p:panel header="Test panel" style="margin-top: 20px;">
+                    #{helloWorld.getMessage()}-!
+                </p:panel>
 
-            <h:outputText value=" test text"/>
-            <h:outputText value=" is selected: #{helloWorld.isSelected}"/>
-            <h:outputLabel value="Hello, world"/>
+                <p:panel header="Test panel 2" style="margin-top: 20px;">
+                    #{helloWorld.getMessageFromHelper()}
+                </p:panel>
 
-            <p:panel header="Test panel" style="margin-top: 20px;">
-                #{helloWorld.getMessage()}-!
-            </p:panel>
+                <h:commandLink value="Go to index" action="welcome" immediate="true" />
+            </h:form>
+        </f:view>
 
-            <p:panel header="Test panel 2" style="margin-top: 20px;">
-                #{helloWorld.getMessageFromHelper()}
-            </p:panel>
-
-            <h:commandLink value="Go to index" action="welcome" immediate="true" />
-        </h:form>
-    </f:view>
-</h:body>
-</html>
+    </ui:define>
+</ui:composition>
