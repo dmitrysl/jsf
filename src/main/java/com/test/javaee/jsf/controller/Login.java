@@ -3,6 +3,7 @@ package com.test.javaee.jsf.controller;
 import com.test.javaee.jsf.model.User;
 import com.test.javaee.jsf.service.UserService;
 import com.test.javaee.jsf.util.SessionUtils;
+import io.reactivex.Observable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -71,6 +72,9 @@ public class Login implements Serializable {
     public String validateUsernamePassword() {
         boolean valid = userService.isEmailAndPasswordValid(user, pwd);
         if (valid) {
+            Observable.just("Hello, world!")
+                    .map(s -> s.hashCode())
+                    .subscribe(i -> System.out.println(Integer.toString(i)));
             HttpSession session = SessionUtils.getSession();
             User usr = userService.getUserByEmail(user);
             session.setAttribute("user", usr);

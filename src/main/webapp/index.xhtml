@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pm="http://primefaces.org/mobile">
-    <h:head>
-        <link href="/jsf/css/core.css" rel="stylesheet" />
-        <link href="/jsf/css/main.css" rel="stylesheet" />
-    </h:head>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/base_template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
-    <h:body>
+    <ui:define name="container">
         <h:panelGroup layout="block">
             <h:form style="display: block; height: 63px;">
                 <div class="navigation-content">
@@ -79,8 +72,8 @@
                         <f:validateLength minimum="6" maximum="40" />
                     </p:password>
                     <p:password id="passwordConfirm" placeholder="Confirm Password" required="true" value="#{user.passwordConfirm}">
-                                <!--binding="#{passwordConfirm}"-->
-                                <!--requiredMessage="Please enter confirm password">-->
+                        <!--binding="#{passwordConfirm}"-->
+                        <!--requiredMessage="Please enter confirm password">-->
                         <f:validateLength minimum="6" maximum="40" />
                     </p:password>
                     <h:message for="passwordConfirm" style="color:red" />
@@ -93,7 +86,8 @@
             <table class="tg">
                 <tr>
                     <th width="80">Person ID</th>
-                    <th width="120">Person Name</th>
+                    <th width="120">Person First Name</th>
+                    <th width="120">Person Last Name</th>
                     <th width="200">Person Email</th>
                     <th width="80">Role</th>
                 </tr>
@@ -101,12 +95,12 @@
                     <tr>
                         <td>${user.id}</td>
                         <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
                         <td>${user.email}</td>
                         <td>${user.role}</td>
                     </tr>
                 </ui:repeat>
             </table>
         </h:panelGroup>
-
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

@@ -7,6 +7,8 @@
           <element id="module-output" name="jsf" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: io.reactivex.rxjava2:rxjava:2.0.0-RC1" />
+          <element id="library" level="project" name="Maven: org.reactivestreams:reactive-streams:1.0.0" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.0" />
           <element id="library" level="project" name="Maven: org.primefaces.themes:all-themes:1.0.10" />
           <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />

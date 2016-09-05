@@ -11,8 +11,10 @@
     <link href="/jsf/css/main.css" rel="stylesheet" />
 </h:head>
 <h:body>
+    <f:loadBundle basename="messages.messages" var="res" />
     <h:panelGroup layout="block">
         <h:form style="display: block; height: 63px;">
+            <h:outputLabel value="#{res.test.label}"></h:outputLabel>
             <div class="navigation-content">
                 <div class="navigation-bar">
                     <div class="menu-btn">

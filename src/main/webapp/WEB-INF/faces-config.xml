@@ -8,13 +8,33 @@
         <el-resolver>
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <message-bundle>com.test.javaee.jsf.webapp.i18n.resources</message-bundle>
+        <resource-bundle>
+            <base-name>com.test.javaee.jsf.webapp.i18n.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
     </application>
+
+    <!--<redirect include-view-params="true"/> By default it performs forward instead of redirect -->
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+            <redirect include-view-params="true"/>
+        </navigation-case>
+    </navigation-rule>
 
     <navigation-rule>
         <from-view-id>/pages/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>admin</from-outcome>
             <to-view-id>/pages/admin/admin.xhtml</to-view-id>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -22,7 +42,7 @@
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/pages/login.xhtml</to-view-id>
-            <redirect/>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
 
@@ -31,7 +51,7 @@
         <navigation-case>
             <from-outcome>example_list</from-outcome>
             <to-view-id>/pages/example/list.xhtml</to-view-id>
-            <redirect/>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -39,7 +59,7 @@
         <navigation-case>
             <from-outcome>welcome</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
-            <redirect/>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -47,7 +67,7 @@
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/pages/login.xhtml</to-view-id>
-            <redirect/>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
 
@@ -55,18 +75,21 @@
         <navigation-case>
             <from-outcome>welcome</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/pages/login.xhtml</to-view-id>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>admin</from-outcome>
             <to-view-id>/pages/admin/admin.xhtml</to-view-id>
+            <redirect include-view-params="true"/>
         </navigation-case>
     </navigation-rule>
 </faces-config>

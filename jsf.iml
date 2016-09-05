@@ -40,6 +40,8 @@
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.1" level="application_server_libraries" />
     <orderEntry type="library" name="Mojarra-2.2.1" level="project" />
     <orderEntry type="library" name="Primefaces" level="project" />
+    <orderEntry type="library" name="Maven: io.reactivex.rxjava2:rxjava:2.0.0-RC1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.reactivestreams:reactive-streams:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.themes:all-themes:1.0.10" level="project" />
     <orderEntry type="library" name="Maven: javax.transaction:jta:1.1" level="project" />
