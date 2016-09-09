@@ -1,4 +1,6 @@
 language: java
+notifications:
+  slack: homedevworld:nQJuwptZIMX2Ajd0C8NnfTWc
 env:
   - DB=mysql
 jdk:
