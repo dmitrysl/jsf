@@ -3,28 +3,53 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="container">
-
-        <f:view>
+        <!-- <f :loadBundle var="msgs" basename="com.test.javaee.jsf.messages" /> -->
+        <f:view locale="ru" />
+        <b:container>
+            <h3>JSF Login Logout #{msgs['test.label']}</h3>
+            <h6>
+                <h:outputFormat value="#{msgs['test.label.with.param']}">
+                    <f:param value="#{login.user}" />
+                </h:outputFormat>
+                <h:outputFormat value="#{msgs['test.label.totals']}">
+                    <f:param value="#{login.total}" />
+                </h:outputFormat>
+                <h:outputFormat value="#{msgs['test.label.your.score']}">
+                    <f:param value="#{login.score}" />
+                </h:outputFormat>
+            </h6>
             <h:form>
-                <h3>JSF Login Logout</h3>
-                <h:outputText value="Username" />
-                <h:inputText id="username" value="#{login.user}"></h:inputText>
-                <h:message for="username"></h:message>
-                <br></br><br></br>
+                <b:row>
+                    <!--<b:column>-->
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel value="Email:"/>
+                            <h:inputText id="username" value="#{login.user}" styleClass="form-control" required="true"></h:inputText>
 
-                <h:outputText value="Password" />
-                <h:inputSecret id="pass" value="#{login.pwd}"></h:inputSecret>
-                <h:message for="pass"></h:message>
-                <br></br><br></br>
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                            <h:outputLabel styleClass="form-label" style="margin-top: 10px;" value="Password:"/>
+                            <h:inputSecret id="pass" value="#{login.pwd}" styleClass="form-control" required="true"></h:inputSecret>
+                            <h:message for="username"></h:message>
+                            <h:message for="pass"></h:message>
+                        </h:panelGrid>
+                    <!--</b:column>-->
+                </b:row>
+                <b:row style="margin-top: 10px;">
+                    <p:captcha label="Captcha" expired="" required="true" validatorMessage="Captcha is not valid. It seams that you a robot!"></p:captcha>
+                </b:row>
+                <b:row style="margin-top: 10px;">
+                    <b:column>
+                        <h:commandButton action="#{login.validateUsernamePassword()}" value="Sign in" styleClass="btn btn-success" />
+                    </b:column>
+                </b:row>
+                <b:row>
 
-                <p:captcha label="Captcha" expired="" required="true" validatorMessage="Captcha is not valid. It seams that you a robot!"></p:captcha>
-                <h:commandButton action="#{login.validateUsernamePassword}" value="Login"></h:commandButton>
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </b:row>
             </h:form>
-        </f:view>
+        </b:container>
 
     </ui:define>
 </ui:composition>

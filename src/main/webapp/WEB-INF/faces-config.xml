@@ -8,15 +8,17 @@
         <el-resolver>
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
-        <!--<locale-config>-->
-            <!--<default-locale>en</default-locale>-->
-            <!--<supported-locale>en</supported-locale>-->
-        <!--</locale-config>-->
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+            <supported-locale>ru</supported-locale>
+        </locale-config>
         <!--<message-bundle>messages</message-bundle>-->
-        <!--<resource-bundle>-->
-            <!--<base-name>messages</base-name>-->
-            <!--<var>msg</var>-->
-        <!--</resource-bundle>-->
+        <resource-bundle>
+            <base-name>com.test.javaee.jsf.messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>-->
+        <!--<resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>-->
     </application>
 
     <!--<redirect include-view-params="true"/> By default it performs forward instead of redirect -->

@@ -44,6 +44,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.reactivestreams:reactive-streams:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.themes:all-themes:1.0.10" level="project" />
+    <orderEntry type="library" name="Maven: net.bootsfaces:bootsfaces:0.9.1" level="project" />
     <orderEntry type="library" name="Maven: javax.transaction:jta:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:3.4.1.Final" level="project" />
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:3.4.1.Final" level="project" />

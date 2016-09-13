@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGroup layout="block">
+        <h:form style="display: block; height: 63px;">
+            <div class="navigation-content">
+                <div class="navigation-bar">
+                    <div class="menu-btn">
+
+                    </div>
+                    <div class="nafigation-left">
+
+                    </div>
+                    <div class="navigation-right">
+                        <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><a class="menuLink" href="">About</a></div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><a class="menuLink" href="">Log In</a></div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><h:outputText escape="false" value="#{login.user}"/></div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><h:commandLink action="#{login.logout()}" value="Logout"></h:commandLink></div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><a class="menuLink" href="">Sign Up</a></div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:panelGroup>
+</ui:composition>

@@ -30,6 +30,12 @@
         <param-value>6LfpFSkTAAAAAOcPZ_0o71WWrcIVwpc1ttTHTiD7</param-value>
     </context-param>
 
+
+    <context-param>
+        <param-name>BootsFaces_USETHEME</param-name>
+        <param-value>default</param-value>
+    </context-param>
+
     <!--#{loggedInUser.preferences.theme}-->
     <!--Production
         Development
