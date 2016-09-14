@@ -155,8 +155,10 @@ public class ExampleController implements Serializable {
     }
 
     public void sortById() {
-        Collections.sort(customerItems, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
-        if (sortByNameDirection.equals("asc")) {
+        if (sortByNameDirection.equals("desc")) {
+            sortByIdDirection = "desc";
+        }
+        if (sortByIdDirection.equals("asc")) {
             Collections.sort(customersDb, (o1, o2) -> Integer.compare(o2.getId(), o1.getId()));
             customerItems = null;
             sortByIdDirection = "desc";
@@ -168,6 +170,9 @@ public class ExampleController implements Serializable {
     }
 
     public void sortByName() {
+        if (sortByIdDirection.equals("desc")) {
+            sortByNameDirection = "desc";
+        }
         if (sortByNameDirection.equals("asc")) {
             Collections.sort(customersDb, (o1, o2) -> o2.getName().compareToIgnoreCase(o1.getName()));
             customerItems = null;
