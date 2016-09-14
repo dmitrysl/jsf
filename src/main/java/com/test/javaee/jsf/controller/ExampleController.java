@@ -1,5 +1,6 @@
 package com.test.javaee.jsf.controller;
 
+import com.test.javaee.jsf.bean.PaymentBean;
 import com.test.javaee.jsf.model.ExampleModel;
 import com.test.javaee.jsf.model.User;
 import com.test.javaee.jsf.service.UserService;
@@ -16,6 +17,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -44,6 +46,9 @@ public class ExampleController implements Serializable {
 
     @ManagedProperty("#{login}")
     private Login login;
+
+    @Inject
+    private PaymentBean payment;
 
     private List<Customer> customerItems;
     private PagingInfo pagingInfo;

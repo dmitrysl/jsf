@@ -8,7 +8,7 @@
 
     <ui:define name="container">
 
-        <b:container>
+        <b:container fluid="true">
             <h3>JSF Login Logout #{msgs['test.label']}</h3>
             <h6>
                 <h:outputFormat value="#{msgs['test.label.with.param']}">
@@ -39,12 +39,11 @@
                     <p:captcha label="Captcha" expired="" required="true" validatorMessage="Captcha is not valid. It seams that you a robot!"></p:captcha>
                 </b:row>
                 <b:row style="margin-top: 10px;">
-                    <b:column>
-                        <h:commandButton action="#{login.validateUsernamePassword()}" value="Sign in" styleClass="btn btn-success" />
+                    <b:column offset="2">
+                        <b:commandButton look="primary" action="#{login.validateUsernamePassword()}" value="Sign in" />
                     </b:column>
                 </b:row>
                 <b:row>
-
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </b:row>
             </h:form>
