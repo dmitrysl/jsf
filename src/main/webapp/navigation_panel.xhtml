@@ -13,7 +13,9 @@
 
                     </div>
                     <div class="nafigation-left">
-
+                        <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><a class="menuLink" href="">JSF Playground</a></div>
+                        </h:panelGroup>
                     </div>
                     <div class="navigation-right">
                         <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
@@ -25,6 +27,16 @@
 
                         <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
                             <div class="menu-item"><h:outputText escape="false" value="#{login.user}"/></div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item">
+                                <h:form>
+                                    <h:selectOneMenu value="#{localeService.language}" onchange="submit()">
+                                        <f:selectItem itemValue="en" itemLabel="English" />
+                                        <f:selectItem itemValue="ru" itemLabel="Russian" />
+                                    </h:selectOneMenu>
+                                </h:form>
+                            </div>
                         </h:panelGroup>
                         <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
                             <div class="menu-item"><h:commandLink action="#{login.logout()}" value="Logout"></h:commandLink></div>

@@ -6,29 +6,25 @@
 
     <h:panelGroup layout="block">
         <h:form style="display: block; height: 63px;">
-            <div class="navigation-content">
-                <div class="navigation-bar">
-                    <div class="menu-btn">
-
-                    </div>
+            <div class="navigation-content" style="bottom: 0; top: auto;">
+                <div class="navigation-bar" style="max-width: none; padding-left: 0px;">
                     <div class="nafigation-left">
-
+                        <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><a class="menuLink" href="">JSF Playground</a></div>
+                        </h:panelGroup>
                     </div>
                     <div class="navigation-right">
                         <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><a class="menuLink" href="">About</a></div>
+                            <div class="menu-item"><a class="menuLink" href="">Current locale: #{msgs['test.label.current.locale']}</a></div>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
+                            <div class="menu-item"><a class="menuLink" href="">©2016. All Rights Reserved</a></div>
                         </h:panelGroup>
                         <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><a class="menuLink" href="">Log In</a></div>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><h:outputText escape="false" value="#{login.user}"/></div>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" rendered="#{login.user != null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><h:commandLink action="#{login.logout()}" value="Logout"></h:commandLink></div>
+                            <div class="menu-item"><a class="menuLink" href="">Privacy Policy</a></div>
                         </h:panelGroup>
                         <h:panelGroup layout="block" rendered="#{login.user == null}" styleClass="navitation-menu" style="display: inline-block">
-                            <div class="menu-item"><a class="menuLink" href="">Sign Up</a></div>
+                            <div class="menu-item"><a class="menuLink" href="">Terms of use</a></div>
                         </h:panelGroup>
                     </div>
                 </div>

@@ -41,12 +41,12 @@
                     </h:column>
                 </h:dataTable>
                 <div style="margin-top: 10px;">
-                    <h:outputText value="Item #{exampleCtrl.pagingInfo.firstItem + 1}..#{exampleCtrl.pagingInfo.lastItem} of #{exampleCtrl.pagingInfo.itemCount}"/>
+                    <h:outputText value="Item #{exampleCtrl.pagingInfo.firstItem + 1}..#{exampleCtrl.pagingInfo.lastItem} of #{exampleCtrl.pagingInfo.itemCount}"/> #{' '}
 
                     <h:commandLink action="#{exampleCtrl.prev}" value="Previous #{exampleCtrl.pagingInfo.batchSize}"
-                                   rendered="#{exampleCtrl.getIsPreviousVisible()}"/>
+                                   rendered="#{exampleCtrl.getIsPreviousVisible()}"/>#{' '}
                     <h:commandLink action="#{exampleCtrl.next}" value="Next #{exampleCtrl.pagingInfo.batchSize}"
-                                   rendered="#{exampleCtrl.getIsNextVisible()}"/>
+                                   rendered="#{exampleCtrl.getIsNextVisible()}"/>#{' '}
                     <h:commandLink action="#{exampleCtrl.next}" value="Remaining #{exampleCtrl.pagingInfo.itemCount - exampleCtrl.pagingInfo.lastItem}"
                                    rendered="#{exampleCtrl.getIsRemainingVisible()}"/>
                 </div>
