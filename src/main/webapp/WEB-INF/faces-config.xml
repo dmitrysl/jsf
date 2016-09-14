@@ -15,7 +15,7 @@
         </locale-config>
         <!--<message-bundle>messages</message-bundle>-->
         <resource-bundle>
-            <base-name>com.test.javaee.jsf.messages</base-name>
+            <base-name>messages.messages</base-name>
             <var>msgs</var>
         </resource-bundle>-->
         <!--<resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>-->
