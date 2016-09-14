@@ -15,13 +15,28 @@
             <h:outputText escape="false" value="(No Customer Items Found)" rendered="#{exampleCtrl.pagingInfo.itemCount == 0}" />
             <br />
             <h:panelGroup rendered="#{exampleCtrl.pagingInfo.itemCount > 0}">
+
                 <h:dataTable value="#{exampleCtrl.customerItems}" var="item" border="0" cellpadding="2" cellspacing="0"
-                             rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border: solid 1px;">
+                             rules="all" style="border: solid 1px;"
+                             headerClass="" footerClass="" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
+                             captionStyle="text-align: left;">
+                    <f:facet name="caption">An list of customers</f:facet>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Customer Name"/>
+                            <h:commandLink action="#{exampleCtrl.sortById}">
+                                <h:outputText value="Id"/>
+                            </h:commandLink>
                         </f:facet>
-                        <h:outputText value=" #{item}"/>
+                        #{item.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:commandLink action="#{exampleCtrl.sortByName}">
+                                <h:outputText value="Customer Name"/>
+                            </h:commandLink>
+                        </f:facet>
+                        <h:inputText value="#{item.name}" rendered="#{item.editable}" size="10"/>
+                        <h:outputText value=" #{item.name}" rendered="#{not item.editable}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -31,15 +46,19 @@
                             <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
                         </h:commandLink>
                         <h:outputText value=" "/>
+                    </h:column>
+                    <h:column>
+                        Edit
+                        <h:selectBooleanCheckbox value="#{item.editable}" onclick="submit()"/>
                         <!--<h:commandLink value="Edit" action="#{customer.editSetup}">-->
                         <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
                         <!--</h:commandLink>-->
-                        <!--<h:outputText value=" "/>-->
-                        <!--<h:commandLink value="Destroy" action="#{customer.destroy}">-->
-                        <!--<f:param name="jsfcrud.currentCustomer" value="#{jsfcrud_class['jsf.util.JsfUtil'].jsfcrud_method['getAsConvertedString'][item][customer.converter].jsfcrud_invoke}"/>-->
-                        <!--</h:commandLink>-->
+                    </h:column>
+                    <h:column>
+                        <h:commandLink value="Remove" action="#{exampleCtrl.removeCustomer(item)}"/>
                     </h:column>
                 </h:dataTable>
+
                 <div style="margin-top: 10px;">
                     <h:outputText value="Item #{exampleCtrl.pagingInfo.firstItem + 1}..#{exampleCtrl.pagingInfo.lastItem} of #{exampleCtrl.pagingInfo.itemCount}"/> #{' '}
 

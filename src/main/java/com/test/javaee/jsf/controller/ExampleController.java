@@ -20,8 +20,7 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by DmitriyS on 8/30/2016.
@@ -46,7 +45,7 @@ public class ExampleController implements Serializable {
     @ManagedProperty("#{login}")
     private Login login;
 
-    private List<String> customerItems;
+    private List<Customer> customerItems;
     private PagingInfo pagingInfo;
     private Boolean isNextVisible;
 
@@ -131,12 +130,14 @@ public class ExampleController implements Serializable {
         }
     }
 
-    private List<String> customersDb;
-    private List<String> findCustomersDb(int limit, int offset) {
+    private String sortByIdDirection = "asc";
+    private String sortByNameDirection = "asc";
+    private List<Customer> customersDb;
+    private List<Customer> findCustomersDb(int limit, int offset) {
         if (customersDb == null) {
             customersDb = new ArrayList<>();
             while(customersDb.size() < 100) {
-                customersDb.add("customer #" + (customersDb.size()+1));
+                customersDb.add(new Customer(customersDb.size()+1, "customer #" + (customersDb.size()+1), customersDb.size()%4==0));
             }
         }
 
@@ -153,7 +154,32 @@ public class ExampleController implements Serializable {
         return pagingInfo;
     }
 
-    public List<String> getCustomerItems() {
+    public void sortById() {
+        Collections.sort(customerItems, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+        if (sortByNameDirection.equals("asc")) {
+            Collections.sort(customersDb, (o1, o2) -> Integer.compare(o2.getId(), o1.getId()));
+            customerItems = null;
+            sortByIdDirection = "desc";
+        } else {
+            Collections.sort(customersDb, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+            customerItems = null;
+            sortByIdDirection = "asc";
+        }
+    }
+
+    public void sortByName() {
+        if (sortByNameDirection.equals("asc")) {
+            Collections.sort(customersDb, (o1, o2) -> o2.getName().compareToIgnoreCase(o1.getName()));
+            customerItems = null;
+            sortByNameDirection = "desc";
+        } else {
+            Collections.sort(customersDb, (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+            customerItems = null;
+            sortByNameDirection = "asc";
+        }
+    }
+
+    public List<Customer> getCustomerItems() {
         if (customerItems == null) {
             getPagingInfo();
             customerItems = findCustomersDb(pagingInfo.getBatchSize(), pagingInfo.getFirstItem());
@@ -171,5 +197,56 @@ public class ExampleController implements Serializable {
 
     public Boolean getIsRemainingVisible() {
         return pagingInfo.getLastItem() < pagingInfo.getItemCount();
+    }
+
+    public void removeCustomer(Customer customer) {
+//        Iterator<Customer> iter = customersDb.iterator();
+//
+//        while (iter.hasNext()) {
+//            Customer cust = iter.next();
+//            if (cust.getId() == customer.getId()) {
+//                iter.remove();
+//                break;
+//            }
+//        }
+    }
+
+    public class Customer {
+        private int id;
+        private String name;
+        private boolean isEditable;
+
+        public Customer() {
+        }
+
+        public Customer(int id, String name, boolean isEditable) {
+            this.id = id;
+            this.name = name;
+            this.isEditable = isEditable;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public boolean isEditable() {
+            return isEditable;
+        }
+
+        public void setEditable(boolean editable) {
+            isEditable = editable;
+        }
     }
 }
