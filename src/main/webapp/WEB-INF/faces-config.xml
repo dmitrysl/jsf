@@ -13,7 +13,7 @@
             <supported-locale>en</supported-locale>
             <supported-locale>ru</supported-locale>
         </locale-config>
-        <!--<message-bundle>messages</message-bundle>-->
+        <!--<message-bundle>messages.messages</message-bundle>-->
         <resource-bundle>
             <base-name>messages.messages</base-name>
             <var>msgs</var>

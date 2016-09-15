@@ -23,7 +23,7 @@
             </h6>
             <h:form>
                 <b:row>
-                    <!--<b:column>-->
+                    <b:column>
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputLabel value="Email:"/>
                             <h:inputText id="username" value="#{login.user}" styleClass="form-control" required="true"></h:inputText>
@@ -33,14 +33,14 @@
                             <h:message for="username"></h:message>
                             <h:message for="pass"></h:message>
                         </h:panelGrid>
-                    <!--</b:column>-->
+                    </b:column>
                 </b:row>
                 <b:row style="margin-top: 10px;">
                     <p:captcha label="Captcha" expired="" required="true" validatorMessage="Captcha is not valid. It seams that you a robot!"></p:captcha>
                 </b:row>
                 <b:row style="margin-top: 10px;">
                     <b:column offset="2">
-                        <b:commandButton look="primary" action="#{login.validateUsernamePassword()}" value="Sign in" />
+                        <h:commandButton styleClass="btn btn-primary btn-sm" action="#{login.validateUsernamePassword()}" value="Sign in" />
                     </b:column>
                 </b:row>
                 <b:row>

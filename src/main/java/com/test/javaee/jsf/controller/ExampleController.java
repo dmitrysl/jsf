@@ -221,6 +221,10 @@ public class ExampleController implements Serializable {
 //        }
     }
 
+    public void processPayment() {
+        int i = 0;
+    }
+
     public class Customer {
         private int id;
         private String name;

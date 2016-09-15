@@ -79,7 +79,8 @@
                     <h:panelGrid columns="2">
                         <h:outputText value="#{payment.amount.currency.symbol}"/>
                         <h:inputText value="#{payment.amount.total}" label="Amount" required="true">
-                            <f:convertNumber minFractionDigits="2" type="currency"/>
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" type="currency" currencyCode="#{payment.amount.currency.code}"/>
+                            <f:validateDoubleRange minimum="1.00" maximum="10000.00" />
                         </h:inputText>
                     </h:panelGrid>
 
@@ -96,9 +97,11 @@
                                         <h:outputLabel value="Number:"/>
                                     </b:column>
                                     <b:column colLg="8" colMd="8" colSm="8" colXs="7">
-                                        <h:inputText value="#{payment.creditCard.cardNumber}" styleClass="form-control" label="Number" required="true">
-                                            <f:convertNumber integerOnly="true"/>
+                                        <h:inputText id="cardNumber" value="#{payment.creditCard.cardNumber}" styleClass="form-control" label="Number" required="true">
+                                            <f:converter converterId="creditCardNumberConverter"/>
+                                            <f:validator validatorId="luhnCheckValidator"/>
                                         </h:inputText>
+                                        <h:message for="cardNumber" style="color:red; display: block;" showSummary="true" showDetail="false"/>
                                     </b:column>
                                 </b:row>
                                 <b:row style="padding: 10px 0px;">
@@ -106,7 +109,10 @@
                                         <h:outputLabel value="Card Holder:"/>
                                     </b:column>
                                     <b:column colLg="8" colMd="8" colSm="8" colXs="7">
-                                        <h:inputText value="#{payment.creditCard.cardHolder}" styleClass="form-control" label="Card holder" required="true" />
+                                        <h:inputText id="cardHolder" value="#{payment.creditCard.cardHolder}" styleClass="form-control" label="Card holder" required="true" >
+                                            <f:validateLength minimum="3"/>
+                                        </h:inputText>
+                                        <h:message for="cardHolder" style="color:red; display: block;" showSummary="true" showDetail="false"/>
                                     </b:column>
                                 </b:row>
                                 <b:row style="padding: 10px 0px;">
@@ -114,9 +120,10 @@
                                         <h:outputLabel value="Expired:"/>
                                     </b:column>
                                     <b:column colLg="8" colMd="8" colSm="8" colXs="7">
-                                        <h:inputText value="#{payment.creditCard.expirationDate}" styleClass="form-control" label="Expired" required="true">
+                                        <h:inputText id="cardExpiration" value="#{payment.creditCard.expirationDate}" styleClass="form-control" label="Expired" required="true">
                                             <f:convertDateTime pattern="MM/yyyy"/>
                                         </h:inputText>
+                                        <h:message for="cardExpiration" style="color:red; display: block;" showSummary="true" showDetail="false"/>
                                     </b:column>
                                 </b:row>
                                 <b:row style="padding: 10px 0px;">
@@ -124,12 +131,18 @@
                                         <h:outputLabel value="Security Code:"/>
                                     </b:column>
                                     <b:column colLg="3" colMd="4" colSm="6" colXs="7">
-                                        <h:inputText value="#{payment.creditCard.securityCode}" styleClass="form-control" label="Security code" required="false">
+                                        <h:inputText id="cardSecurityCode" value="#{payment.creditCard.securityCode}" styleClass="form-control" label="Security code" required="false">
                                             <f:convertNumber integerOnly="true" minIntegerDigits="3" maxIntegerDigits="4"/>
                                         </h:inputText>
+                                        <h:message for="cardSecurityCode" style="color:red; display: block;" showSummary="true" showDetail="false"/>
                                     </b:column>
                                 </b:row>
                             </b:panel>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                            <h:commandButton styleClass="btn btn-sm btn-primary" action="#{exampleCtrl.processPayment}" value="Process" />
                         </b:column>
                     </b:row>
                 </h:form>
