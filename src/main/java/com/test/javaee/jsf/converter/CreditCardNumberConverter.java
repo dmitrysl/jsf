@@ -1,6 +1,7 @@
 package com.test.javaee.jsf.converter;
 
 import com.test.javaee.jsf.bean.CreditCardNumber;
+import com.test.javaee.jsf.util.Messages;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -27,7 +28,8 @@ public class CreditCardNumberConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         StringBuilder builder = new StringBuilder(value);
-
+        context.getApplication().getMessageBundle();
+        context.getApplication().getResourceBundle(context, context.getApplication().getMessageBundle());
         boolean foundInvalidCharacter = false;
         char invalidCharacter = '\0';
         int i = 0;
@@ -45,8 +47,8 @@ public class CreditCardNumberConverter implements Converter {
         }
 
         if (foundInvalidCharacter) {
-            String msg = String.format("Found invalid character: %s", invalidCharacter);
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage message = Messages.getMessage("com.test.javaee.jsf.creditcard.invalid_card_number", invalidCharacter);
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ConverterException(message);
         }
 

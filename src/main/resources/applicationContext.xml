@@ -24,6 +24,7 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="com.test.javaee.jsf">
+        <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -45,10 +46,6 @@
             <!--<bean class="com.test.javaee.jsf.utils.springframework.http.converter.JSONObjectAndJSONArrayMessageConverter" />-->
         </mvc:message-converters>
     </mvc:annotation-driven>
-
-    <context:component-scan base-package="com.test.javaee.jsf">
-        <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
-    </context:component-scan>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving
         up static resources in the ${webappRoot}/resources directory -->

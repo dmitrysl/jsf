@@ -1,14 +1,41 @@
 package com.test.javaee.jsf.bean;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 
 /**
  * Created by DmitriyS on 9/14/2016.
  */
 @Named("payment")
-@RequestScoped
-public class PaymentBean {
+@SessionScoped
+//@ConversationScoped
+public class PaymentBean implements Serializable {
+    private static final long serialVersionUID = -1676840243235620507L;
+
+//    @Inject
+//    private Conversation conversation;
+
+    // Control start and end of conversation
+//    public void start() {
+//        conversation.begin();
+//    }
+//
+//    public void end() {
+//        conversation.end();
+//    }
+
+//    public Conversation getConversation() {
+//        return conversation;
+//    }
+//
+//    public void setConversation(Conversation conversation) {
+//        this.conversation = conversation;
+//    }
+
     private Amount amount = new Amount();
     private CreditCard creditCard = new CreditCard();
 

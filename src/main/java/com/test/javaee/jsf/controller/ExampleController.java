@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.Conversation;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -96,6 +98,12 @@ public class ExampleController implements Serializable {
         WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext)
                 .getAutowireCapableBeanFactory()
                 .autowireBean(this);
+//        payment.start();
+    }
+
+    @PreDestroy
+    public void destroy() {
+        int i = 0;
     }
 
     public String save() {

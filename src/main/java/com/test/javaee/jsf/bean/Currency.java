@@ -1,9 +1,13 @@
 package com.test.javaee.jsf.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by DmitriyS on 9/14/2016.
  */
-public class Currency {
+public class Currency implements Serializable {
+    private static final long serialVersionUID = -2573045505191096731L;
+
     public static Currency USD = new Currency("", Code.USD, "$");
     public static Currency EUR = new Currency("", Code.EUR, "€");
     public static Currency UAH = new Currency("", Code.UAH, "₴");

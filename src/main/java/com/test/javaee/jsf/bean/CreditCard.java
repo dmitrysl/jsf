@@ -4,13 +4,15 @@ import com.test.javaee.jsf.validator.LuhnCheck;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
  * Created by DmitriyS on 9/14/2016.
  */
-public class CreditCard {
+public class CreditCard implements Serializable {
+    private static final long serialVersionUID = 4168359483768190720L;
 
     private static final Pattern visaPattern = Pattern.compile("^4[0-9]{12}(?:[0-9]{3})?$");
     private static final Pattern mastercardPattern = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$");

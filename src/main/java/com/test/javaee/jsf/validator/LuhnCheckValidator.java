@@ -1,6 +1,7 @@
 package com.test.javaee.jsf.validator;
 
 import com.test.javaee.jsf.bean.CreditCardNumber;
+import com.test.javaee.jsf.util.Messages;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
@@ -47,8 +48,8 @@ public class LuhnCheckValidator implements Validator, ConstraintValidator<LuhnCh
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (!luhnCheck(value.toString().trim().replaceAll("\\D", ""))) {
-            String msg = String.format("Invalid credit card number");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage message = Messages.getMessage("com.test.javaee.jsf.creditcard.invalid_card_number");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(message);
         }
     }

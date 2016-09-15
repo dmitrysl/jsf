@@ -2,12 +2,15 @@ package com.test.javaee.jsf.bean;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by DmitriyS on 9/14/2016.
  */
-public class Amount {
+public class Amount implements Serializable {
+    private static final long serialVersionUID = 8248082846573338293L;
+
     @Min(0)
     @Max(10000)
     private BigDecimal total = BigDecimal.ZERO;
