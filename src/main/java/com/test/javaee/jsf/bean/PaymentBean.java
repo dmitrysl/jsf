@@ -3,6 +3,10 @@ package com.test.javaee.jsf.bean;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -10,9 +14,11 @@ import java.io.Serializable;
 /**
  * Created by DmitriyS on 9/14/2016.
  */
-@Named("payment")
-@SessionScoped
+//@Named("payment")
+//@SessionScoped
 //@ConversationScoped
+    @ManagedBean(name = "payment")
+    @javax.faces.bean.SessionScoped
 public class PaymentBean implements Serializable {
     private static final long serialVersionUID = -1676840243235620507L;
 
@@ -53,5 +59,10 @@ public class PaymentBean implements Serializable {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public void validateExpiredDate(FacesContext context, UIComponent component, Object value) {
+        UIInput day = (UIInput) component.findComponent("cardExpiration");
+        String val = day.getSubmittedValue().toString();
     }
 }

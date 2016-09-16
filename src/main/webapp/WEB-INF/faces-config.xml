@@ -11,6 +11,7 @@
         <locale-config>
             <default-locale>en</default-locale>
             <supported-locale>en</supported-locale>
+            <supported-locale>ua</supported-locale>
             <supported-locale>ru</supported-locale>
         </locale-config>
         <message-bundle>messages.messages</message-bundle>

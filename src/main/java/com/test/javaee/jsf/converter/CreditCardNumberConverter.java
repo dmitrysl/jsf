@@ -24,6 +24,11 @@ public class CreditCardNumberConverter implements Converter {
 
     @ManagedProperty("#{msgs}")
     private ResourceBundle resourceBundle;
+    private String separator = " "; // default separator
+
+    public void setSeparator(String separator) {
+        this.separator = separator;
+    }
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -39,6 +44,8 @@ public class CreditCardNumberConverter implements Converter {
             if (Character.isDigit(ch)) {
                 i++;
             } else if (Character.isWhitespace(ch)) {
+                builder.deleteCharAt(i);
+            } else if (separator.length() == 1 && separator.charAt(0) == ch) {
                 builder.deleteCharAt(i);
             } else {
                 foundInvalidCharacter = true;
@@ -63,7 +70,7 @@ public class CreditCardNumberConverter implements Converter {
         // 16 xxxx xxxx xxxx xxxx
         // 22 xxxxxx xxxxxxxx xxxxxxxx
 
-        String v = value.toString().trim().replaceAll("\\s", "");
+        String v = value.toString().trim().replaceAll("\\s", "").replaceAll(separator, "");
         int[] boundries = null;
         int length = v.length();
         if (length == 13) {
@@ -84,7 +91,7 @@ public class CreditCardNumberConverter implements Converter {
         int start = 0;
         for (int end : boundries) {
             result.append(v.substring(start, end));
-            result.append(" ");
+            result.append(separator);
             start = end;
         }
         result.append(v.substring(start));

@@ -49,12 +49,21 @@ public class ExampleController implements Serializable {
     @ManagedProperty("#{login}")
     private Login login;
 
-    @Inject
+    @ManagedProperty("#{payment}")
+    //@Inject
     private PaymentBean payment;
 
     private List<Customer> customerItems;
     private PagingInfo pagingInfo;
     private Boolean isNextVisible;
+
+    public PaymentBean getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentBean payment) {
+        this.payment = payment;
+    }
 
     public User getUser() {
         return user;
@@ -82,7 +91,7 @@ public class ExampleController implements Serializable {
 
     public ExampleController() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Object obj = facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "customerJpa");
+        Object obj = facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "payment");
         pagingInfo = new PagingInfo();
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         ServletContext servletContext = (ServletContext) externalContext.getContext();
@@ -229,8 +238,10 @@ public class ExampleController implements Serializable {
 //        }
     }
 
-    public void processPayment() {
+    public String processPayment() {
         int i = 0;
+        System.out.println("payment" + payment.getCreditCard().getCardNumber());
+        return null;
     }
 
     public class Customer {
