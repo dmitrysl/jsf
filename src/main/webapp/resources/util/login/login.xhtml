@@ -4,6 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:composite="http://java.sun.com/jsf/composite">
@@ -26,12 +27,16 @@
                 <b:column>
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel value="#{cc.attrs.usernameLabel}"/>
-                        <h:inputText id="username" value="#{cc.attrs.usernameVal}" styleClass="form-control" required="true" />
+                        <h:inputText id="username" value="#{cc.attrs.usernameVal}" styleClass="form-control" required="true" >
+                            <f:ajax event="keyup" execute="@this" render="usernameError echo" />
+                        </h:inputText>
 
                         <h:outputLabel styleClass="form-label" style="margin-top: 10px;" value="#{cc.attrs.userpassLabel}"/>
                         <h:inputSecret id="pass" value="#{cc.attrs.userpassVal}" styleClass="form-control" required="true" />
 
                         <h:panelGroup layout="vertical" style="color: #ff0000;">
+                            <h:outputText id="echo" value="#{cc.attrs.usernameVal}" />
+                            <h:outputText id="usernameError" />
                             <h:message for="username" />
                             <h:message for="pass" />
                         </h:panelGroup>
