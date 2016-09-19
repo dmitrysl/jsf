@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+<ui:composition>
+    <composite:interface componentType="autocomplete.component">
+        <composite:attribute name="value" required="true" />
+        <composite:attribute name="completionItems" required="true" />
+    </composite:interface>
+    <composite:implementation>
+        <h:outputScript library="util" name="autoComplete/autoComplete.js" target="head"/>
+
+        <b:row>
+            <b:column>
+                <h:inputText id="autocomplete-input" value="#{cc.attrs.value}" styleClass="form-control" required="true"
+                             valueChangeListener="#{autoCompleteListener.valueChanged}"
+                             onkeyup="javaee.jsf.component.autoComplete.updateCompletionItems(this, event)"
+                             onblur="javaee.jsf.component.autoComplete.lostFocus(this)">
+                </h:inputText>
+            </b:column>
+        </b:row>
+        <b:row style="margin-top: 10px;">
+            <b:column>
+                <h:selectOneListbox id="autocomplete-list" style="display: none;"
+                                    valueChangeListener="#{autoCompleteListener.completionItemSelected}"
+                                    onfocus="javaee.jsf.component.autoComplete.listboxGainedFocus()" >
+                    <f:selectItems value="#{cc.attrs.completionItems}" />
+                    <f:ajax render="autocomplete-input" />
+                </h:selectOneListbox>
+            </b:column>
+        </b:row>
+    </composite:implementation>
+</ui:composition>
+</html>

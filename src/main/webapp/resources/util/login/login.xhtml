@@ -3,12 +3,13 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:composite="http://java.sun.com/jsf/composite">
-
+<ui:composition>
     <composite:interface componentType="login.component">
         <composite:attribute name="usernameVal" required="true" />
         <composite:attribute name="usernameLabel" default="Email:" />
@@ -23,15 +24,25 @@
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="util" name="login/login.js" target="head"/>
-        <h:form id="loginForm" onsubmit="return checkLoginForm(this, '#{cc.clientId}')">
+        <h:outputScript library="javax.faces" name="jsf.js" target="head"/>
+        <h:form id="loginForm" onsubmit="return javaee.jsf.component.login.checkLoginForm(this, '#{cc.clientId}')">
             <b:row>
                 <b:column>
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel value="#{cc.attrs.usernameLabel}"/>
                         <h:panelGroup>
                             <h:inputText id="username" value="#{cc.attrs.usernameVal}" styleClass="form-control" required="true" validator="#{cc.attrs.usernameValidator}">
-                                <f:ajax delay="700" event="keyup" execute="@this" render="usernameError echo" oneerror="loginFormCheckUsernameError" onevent="showProgress" />
+                                <f:ajax delay="700" event="keyup" execute="@this" render="usernameError echo" oneerror="javaee.jsf.component.login.loginFormCheckUsernameError" onevent="javaee.jsf.component.login.showProgress" />
                             </h:inputText>
+                            <!--<h:inputText id="username" value="#{cc.attrs.usernameVal}" styleClass="form-control" required="true" validator="#{cc.attrs.usernameValidator}"-->
+                            <!--onkeyup="jsf.ajax.request(this, event, {-->
+                            <!--render: 'usernameError echo',-->
+                            <!--delay: 700,-->
+                            <!--onevent: javaee.jsf.component.login.showProgress,-->
+                            <!--onerror: javaee.jsf.component.login.loginFormCheckUsernameError,-->
+                            <!--customParam: 42-->
+                            <!--})">-->
+                            <!--</h:inputText>-->
                             <h:graphicImage id="pole" library="img" name="151.gif" style="display: none;" />
                         </h:panelGroup>
 
@@ -71,4 +82,5 @@
             </b:row>
         </h:form>
     </composite:implementation>
+</ui:composition>
 </html>

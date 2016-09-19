@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * Created by DmitriyS on 9/1/2016.
@@ -110,6 +111,8 @@ public class Login implements Serializable {
     }
 
     public void validateUsername(FacesContext context, UIComponent component, Object o) {
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        int customParam = null != params.get("customParam") ? Integer.parseInt(params.get("customParam")) : null;
         String value = (String) o;
         if (value.length() < 3) {
             throw new ValidatorException(new FacesMessage("Username length is less than 3 characters."));
