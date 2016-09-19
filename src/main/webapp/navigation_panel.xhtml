@@ -31,10 +31,15 @@
                         <h:panelGroup layout="block" styleClass="navitation-menu" style="display: inline-block">
                             <div class="menu-item">
                                 <h:form>
-                                    <h:selectOneMenu value="#{localeService.language}" onchange="submit()">
-                                        <f:selectItem itemValue="en" itemLabel="English" />
-                                        <f:selectItem itemValue="ua" itemLabel="Україньска" />
-                                        <f:selectItem itemValue="ru" itemLabel="Русский" />
+                                    <!--<h:selectOneMenu value="#{localeService.language}" onchange="submit()">-->
+                                        <!--<f:selectItem itemValue="en" itemLabel="English" />-->
+                                        <!--<f:selectItem itemValue="ua" itemLabel="Україньска" />-->
+                                        <!--<f:selectItem itemValue="ru" itemLabel="Русский" />-->
+                                    <!--</h:selectOneMenu>-->
+                                    <h:selectOneMenu value="#{localeService.language}" valueChangeListener="#{localeService.changeLanguage}" onchange="submit()">
+                                        <f:selectItem itemValue="en" itemLabel="#{msgs['language.selector.english']}" />
+                                        <f:selectItem itemValue="ua" itemLabel="#{msgs['language.selector.ukraine']}" />
+                                        <f:selectItem itemValue="ru" itemLabel="#{msgs['language.selector.russian']}" />
                                     </h:selectOneMenu>
                                 </h:form>
                             </div>

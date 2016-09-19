@@ -128,4 +128,8 @@ public class User implements Serializable {
             fc.renderResponse();
         }
     }
+
+    public boolean isAdmin() {
+        return role == Role.ADMIN;
+    }
 }

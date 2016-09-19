@@ -73,6 +73,15 @@
             </h:panelGroup>
         </h:form>
 
+        <f:view >
+            <!--<f:event type="preRenderView" listener="" />-->
+            <b:row rendered="#{login.loggedInUser.isAdmin()}">
+                <b:column>
+                    Welcome #{login.loggedInUser.role}
+                </b:column>
+            </b:row>
+        </f:view>
+
         <p:panel header="Test panel" style="margin-top: 20px;">
             <h:outputText value="Payment form"/>
             <h:panelGroup>

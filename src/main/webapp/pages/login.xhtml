@@ -4,7 +4,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:login="http://java.sun.com/jsf/composite/util/login">
 
     <ui:define name="container">
 
@@ -21,32 +23,25 @@
                     <f:param value="#{login.score}" />
                 </h:outputFormat>
             </h6>
-            <h:form>
-                <b:row>
-                    <b:column>
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputLabel value="Email:"/>
-                            <h:inputText id="username" value="#{login.user}" styleClass="form-control" required="true"></h:inputText>
-
-                            <h:outputLabel styleClass="form-label" style="margin-top: 10px;" value="Password:"/>
-                            <h:inputSecret id="pass" value="#{login.pwd}" styleClass="form-control" required="true"></h:inputSecret>
-                            <h:message for="username"></h:message>
-                            <h:message for="pass"></h:message>
-                        </h:panelGrid>
-                    </b:column>
-                </b:row>
-                <b:row style="margin-top: 10px;">
-                    <p:captcha label="Captcha" expired="" required="true" validatorMessage="Captcha is not valid. It seams that you a robot!"></p:captcha>
-                </b:row>
-                <b:row style="margin-top: 10px;">
-                    <b:column offset="2">
-                        <h:commandButton styleClass="btn btn-primary btn-sm" action="#{login.validateUsernamePassword()}" value="Sign in" />
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </b:row>
-            </h:form>
+            <login:login
+                    usernameLabel="Email:"
+                    userpassLabel="Password:"
+                    usernameVal="#{login.user}"
+                    userpassVal="#{login.pwd}"
+                    actionBtnLabel="Log in"
+                    loginMethod="#{login.validateUsernamePassword()}"
+                    rendered="true">
+                <f:validateLength minimum="3" maximum="100" for="usernameInput" />
+                <f:validateLength minimum="6" maximum="32" for="userpassInput" />
+                <f:validator validatorId="jsf.validator.password" for="userpassInput" />
+                <f:facet name="description">
+                    <div style="color:#00ff55;">Aspect example</div>
+                </f:facet>
+                <h:link>Register Link</h:link>
+            </login:login>
+            <div style="color:red;">
+                <util:debug/>
+            </div>
         </b:container>
 
     </ui:define>

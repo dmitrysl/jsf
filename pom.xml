@@ -34,8 +34,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <src.main.dir>src/main</src.main.dir>
-        <resources.dir>${src.main.dir}/resources</resources.dir>
         <webapp.dir>${src.main.dir}/webapp</webapp.dir>
+        <resources.dir>${src.main.dir}/resources</resources.dir>
+        <jsf.components.resources.dir>${webapp.dir}/resources</jsf.components.resources.dir>
         <filters.dir>${project.basedir}/config</filters.dir>
         <build.properties.file>${filters.dir}/build.properties</build.properties.file>
         <db.migration.dir>filesystem:${project.basedir}/db/migration</db.migration.dir>
@@ -301,6 +302,13 @@
                 </includes>
             </resource>
             <resource>
+                <directory>${jsf.components.resources.dir}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>${resources.properties.files}</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>${db.migration.dir}</directory>
                 <filtering>false</filtering>
                 <targetPath>${db.migration.dir}</targetPath>
@@ -333,12 +341,26 @@
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>native2ascii-resources</id>
                         <goals>
                             <goal>native2ascii</goal>
                         </goals>
                         <configuration>
-                            <src>${basedir}/src/main/resources</src>
-                            <dest>${project.build.directory}/native2ascii</dest>
+                            <!--<src>${basedir}/src/main/resources</src>-->
+                            <!--<dest>${project.build.directory}/native2ascii</dest>-->
+                            <encoding>UTF8</encoding>
+                            <includes>**/*.properties</includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>native2ascii-jsf-components-resources</id>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                        <configuration>
+                            <workDir>${jsf.components.resources.dir}/resources</workDir>
+                            <!--<src>${basedir}/src/main/resources</src>-->
+                            <!--<dest>${project.build.directory}/native2ascii</dest>-->
                             <encoding>UTF8</encoding>
                             <includes>**/*.properties</includes>
                         </configuration>
