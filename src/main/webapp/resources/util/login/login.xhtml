@@ -12,6 +12,7 @@
     <composite:interface componentType="login.component">
         <composite:attribute name="usernameVal" required="true" />
         <composite:attribute name="usernameLabel" default="Email:" />
+        <composite:attribute name="usernameValidator" method-signature="void Action(javax.faces.context.FacesContext, javax.faces.component.UIComponent,Object)" />
         <composite:attribute name="userpassVal" required="true" />
         <composite:attribute name="userpassLabel" default="Password:" />
         <composite:attribute name="actionBtnLabel" default="Sign in" />
@@ -27,18 +28,21 @@
                 <b:column>
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputLabel value="#{cc.attrs.usernameLabel}"/>
-                        <h:inputText id="username" value="#{cc.attrs.usernameVal}" styleClass="form-control" required="true" >
-                            <f:ajax event="keyup" execute="@this" render="usernameError echo" />
-                        </h:inputText>
+                        <h:panelGroup>
+                            <h:inputText id="username" value="#{cc.attrs.usernameVal}" styleClass="form-control" required="true" validator="#{cc.attrs.usernameValidator}">
+                                <f:ajax delay="700" event="keyup" execute="@this" render="usernameError echo" oneerror="loginFormCheckUsernameError" onevent="showProgress" />
+                            </h:inputText>
+                            <h:graphicImage id="pole" library="img" name="151.gif" style="display: none;" />
+                        </h:panelGroup>
+
 
                         <h:outputLabel styleClass="form-label" style="margin-top: 10px;" value="#{cc.attrs.userpassLabel}"/>
                         <h:inputSecret id="pass" value="#{cc.attrs.userpassVal}" styleClass="form-control" required="true" />
 
                         <h:panelGroup layout="vertical" style="color: #ff0000;">
-                            <h:outputText id="echo" value="#{cc.attrs.usernameVal}" />
-                            <h:outputText id="usernameError" />
-                            <h:message for="username" />
-                            <h:message for="pass" />
+                            <h:message for="username" id="usernameError" />
+                            <h:message for="pass" id="userpassError" />
+                            <h:outputText id="echo" value="#{cc.attrs.usernameVal}" style="display: block;" />
                         </h:panelGroup>
                     </h:panelGrid>
                 </b:column>

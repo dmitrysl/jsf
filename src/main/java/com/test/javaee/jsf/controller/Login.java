@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -106,6 +107,17 @@ public class Login implements Serializable {
 
     public void setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
+    }
+
+    public void validateUsername(FacesContext context, UIComponent component, Object o) {
+        String value = (String) o;
+        if (value.length() < 3) {
+            throw new ValidatorException(new FacesMessage("Username length is less than 3 characters."));
+        }
+        boolean isFree = userService.isEmailFree(value);
+        if (!isFree) {
+            throw new ValidatorException(new FacesMessage("Username already taken."));
+        }
     }
 
     public String validateUsernamePassword() {

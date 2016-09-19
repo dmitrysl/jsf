@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService, Serializable {
 
     @Transactional
     @Override
+    public boolean isEmailFree(String email) {
+        return userDao.isEmailFree(email);
+    }
+
+    @Transactional
+    @Override
     public boolean isEmailAndPasswordValid(String email, String password) {
         return userDao.isEmailAndPasswordValid(email, SecurityUtils.md5(password));
     }

@@ -22,6 +22,13 @@ public class UserDaoImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
+    public boolean isEmailFree(String email) {
+        return getSession().createQuery("select u from User u where u.email = :email", User.class)
+                .setParameter("email", email)
+                .uniqueResult() == null;
+    }
+
+    @Override
     public boolean isEmailAndPasswordValid(String email, String password) {
         return this.sessionFactory.getCurrentSession().createQuery("select 1 from User u where u.email = :email and u.password = :pass")
                 .setParameter("email", email)

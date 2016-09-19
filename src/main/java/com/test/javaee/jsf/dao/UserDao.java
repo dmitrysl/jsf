@@ -16,4 +16,6 @@ public interface UserDao {
     void removeUser(int id);
 
     User getUserByEmail(String email);
+
+    boolean isEmailFree(String email);
 }

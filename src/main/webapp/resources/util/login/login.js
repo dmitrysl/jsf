@@ -10,3 +10,19 @@ function checkLoginForm(form, ccId) {
     }
     return true;
 }
+
+function loginFormCheckUsernameError() {
+    console.log("loginFormCheckUsernameError: ", arguments);
+}
+
+function showProgress(data) {
+    console.log("showProgress: ", arguments);
+    var inputId = data.source.id;
+    var progressBarId = inputId.substring(0, inputId.length - "username".length) + "pole";
+    console.log(progressBarId)
+    if (data.status == "begin") {
+        document.getElementById(progressBarId).style.display = "inline-block";
+    } else if (data.status == "success") {
+        document.getElementById(progressBarId).style.display = "none";
+    }
+}
