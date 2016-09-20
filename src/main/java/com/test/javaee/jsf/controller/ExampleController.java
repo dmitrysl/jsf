@@ -5,13 +5,16 @@ import com.test.javaee.jsf.model.ExampleModel;
 import com.test.javaee.jsf.model.User;
 import com.test.javaee.jsf.service.UserService;
 import com.test.javaee.jsf.util.PagingInfo;
+import com.test.javaee.jsf.ws.weather.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
@@ -53,6 +56,8 @@ public class ExampleController implements Serializable {
     @ManagedProperty("#{payment}")
     //@Inject
     private PaymentBean payment;
+
+    private WeatherSoap service;
 
     private List<Customer> customerItems;
     private PagingInfo pagingInfo;
@@ -99,6 +104,11 @@ public class ExampleController implements Serializable {
         WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext)
                 .getAutowireCapableBeanFactory()
                 .autowireBean(this);
+        try {
+            service = new Weather().getWeatherSoap();
+        } catch (Exception e) {
+            int i = 0;
+        }
     }
 
     @PostConstruct
@@ -133,10 +143,24 @@ public class ExampleController implements Serializable {
         return "example_details";
     }
 
+    public String showForecast() {
+        return "weather";
+    }
+
     public String next() {
         ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
         handler.performNavigation("welcome");
         reset(false);
+
+        // weather info i.e. icon, description http://wsf.cdyne.com/WeatherWS/Weather.asmx
+        ArrayOfWeatherDescription weatherInfo = service.getWeatherInformation();
+
+        String zip = "90210"; // http://www.cexx.org/zipcode.htm
+        // weather for today
+        WeatherReturn weather = service.getCityWeatherByZIP(zip);
+        // weather for seven days
+        ForecastReturn forecast = service.getCityForecastByZIP(zip);
+
         getPagingInfo().nextPage();
         return "example_list";
     }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/base_template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:custom="http://javaee.jsf.com">
+
+    <ui:define name="container">
+
+        <p:panel header="Weather" style="margin-top: 20px;">
+            <h:outputText value="Weather"/>
+
+            <h:panelGroup>
+                <h:form>
+                    <b:row style="margin-top: 10px;">
+                        <b:column>
+                            <ui:repeat value="#{weather.forecast.forecastResult.forecast}" var="forecast">
+                                <div style="margin: 10px; display: inline-block;">
+                                    <div>#{forecast.date}</div>
+                                    <div>
+                                        <h:graphicImage url="#{weather.getWeatherDescription(forecast.weatherID).pictureURL}" />
+                                        <h:outputText value="#{weather.getWeatherDescription(forecast.weatherID).description}" />
+                                    </div>
+                                    <div>#{forecast.desciption}</div>
+                                    <div>#{forecast.probabilityOfPrecipiation.daytime}</div>
+                                    <div>#{forecast.probabilityOfPrecipiation.nighttime}</div>
+                                    <div>#{forecast.temperatures.morningLow}</div>
+                                    <div>#{forecast.temperatures.daytimeHigh}</div>
+                                </div>
+                            </ui:repeat>
+                        </b:column>
+                    </b:row>
+                    <b:row style="margin-top: 10px;">
+                        <b:column>
+                            <div>#{weather.weather.city}</div>
+                            <div>#{weather.weather.state}</div>
+                            <div>#{weather.weather.weatherStationCity}</div>
+                            <div>
+                                <h:graphicImage url="#{weather.getWeatherDescription(weather.weather.weatherID).pictureURL}" />
+                                <h:outputText value="#{weather.getWeatherDescription(weather.weather.weatherID).description}" />
+                            </div>
+                            <div>#{weather.weather.description}</div>
+                            <div>#{weather.weather.temperature}</div>
+                            <div>#{weather.weather.pressure}</div>
+                            <div>#{weather.weather.relativeHumidity}</div>
+                            <div>#{weather.weather.wind}</div>
+                            <div>#{weather.weather.windChill}</div>
+                            <div>#{weather.weather.visibility}</div>
+                            <div>#{weather.weather.remarks}</div>
+                        </b:column>
+                    </b:row>
+                    <b:row style="margin-top: 10px;">
+                        <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                            <h:commandButton styleClass="btn btn-sm btn-primary" action="welcome" value="Go to index" immediate="true" />
+                        </b:column>
+                    </b:row>
+                </h:form>
+            </h:panelGroup>
+        </p:panel>
+
+    </ui:define>
+</ui:composition>

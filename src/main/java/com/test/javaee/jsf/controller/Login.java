@@ -111,16 +111,16 @@ public class Login implements Serializable {
     }
 
     public void validateUsername(FacesContext context, UIComponent component, Object o) {
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-        int customParam = null != params.get("customParam") ? Integer.parseInt(params.get("customParam")) : null;
+//        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+//        int customParam = null != params.get("customParam") ? Integer.parseInt(params.get("customParam")) : null;
         String value = (String) o;
         if (value.length() < 3) {
             throw new ValidatorException(new FacesMessage("Username length is less than 3 characters."));
         }
-        boolean isFree = userService.isEmailFree(value);
-        if (!isFree) {
-            throw new ValidatorException(new FacesMessage("Username already taken."));
-        }
+//        boolean isFree = userService.isEmailFree(value);
+//        if (!isFree) {
+//            throw new ValidatorException(new FacesMessage("Username already taken."));
+//        }
     }
 
     public String validateUsernamePassword() {
