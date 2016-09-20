@@ -6,7 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:util="http://java.sun.com/jsf/composite/util"
-                xmlns:login="http://java.sun.com/jsf/composite/util/login">
+                xmlns:login="http://java.sun.com/jsf/composite/util/login"
+                xmlns:autoComplete="http://java.sun.com/jsf/composite/util/autoComplete">
 
     <ui:define name="container">
 
@@ -40,6 +41,10 @@
                 </f:facet>
                 <h:link>Register Link</h:link>
             </login:login>
+            <autoComplete:autoComplete
+                    completionItems="#{autoComplete.locations}"
+                    value="#{helloWorld.location}" />
+            #{helloWorld.location}
             <div style="color:red;">
                 <util:debug/>
             </div>

@@ -11,32 +11,34 @@
       xmlns:composite="http://java.sun.com/jsf/composite">
 
 <ui:composition>
-    <composite:interface componentType="autocomplete.component">
+    <composite:interface>
         <composite:attribute name="value" required="true" />
         <composite:attribute name="completionItems" required="true" />
     </composite:interface>
     <composite:implementation>
         <h:outputScript library="util" name="autoComplete/autoComplete.js" target="head"/>
-
-        <b:row>
-            <b:column>
-                <h:inputText id="autocomplete-input" value="#{cc.attrs.value}" styleClass="form-control" required="true"
-                             valueChangeListener="#{autoCompleteListener.valueChanged}"
-                             onkeyup="javaee.jsf.component.autoComplete.updateCompletionItems(this, event)"
-                             onblur="javaee.jsf.component.autoComplete.lostFocus(this)">
-                </h:inputText>
-            </b:column>
-        </b:row>
-        <b:row style="margin-top: 10px;">
-            <b:column>
-                <h:selectOneListbox id="autocomplete-list" style="display: none;"
-                                    valueChangeListener="#{autoCompleteListener.completionItemSelected}"
-                                    onfocus="javaee.jsf.component.autoComplete.listboxGainedFocus()" >
-                    <f:selectItems value="#{cc.attrs.completionItems}" />
-                    <f:ajax render="autocomplete-input" />
-                </h:selectOneListbox>
-            </b:column>
-        </b:row>
+        <h:form prependId="false">
+            <b:row>
+                <b:column>
+                    <h:inputText id="autocomplete-input" value="#{cc.attrs.value}" styleClass="form-control" required="true"
+                                 delay="700"
+                                 valueChangeListener="#{autoCompleteListener.valueChanged}"
+                                 onkeyup="javaee.jsf.component.autoComplete.updateCompletionItems(this, event)"
+                                 onblur="javaee.jsf.component.autoComplete.lostFocus(this)">
+                    </h:inputText>
+                </b:column>
+            </b:row>
+            <b:row style="margin-top: 10px;">
+                <b:column>
+                    <h:selectOneListbox id="autocomplete-list" style="display: none;"
+                                        valueChangeListener="#{autoCompleteListener.completionItemSelected}"
+                                        onfocus="javaee.jsf.component.autoComplete.listboxGainedFocus()" >
+                        <f:selectItems value="#{cc.attrs.completionItems}" var="item" itemValue="#{item.name}" itemLabel="#{item.name}" />
+                        <f:ajax render="autocomplete-input" />
+                    </h:selectOneListbox>
+                </b:column>
+            </b:row>
+        </h:form>
     </composite:implementation>
 </ui:composition>
 </html>

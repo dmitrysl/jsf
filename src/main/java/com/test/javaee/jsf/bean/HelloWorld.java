@@ -18,6 +18,8 @@ public class HelloWorld implements Serializable {
 
     private boolean isSelected = false;
 
+    private String location;
+
     @ManagedProperty(value="#{helper}")
     private HelperBean helperBean;
 
@@ -47,5 +49,13 @@ public class HelloWorld implements Serializable {
 
     public String getMessageFromHelper() {
         return helperBean.getHelperMessage();
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

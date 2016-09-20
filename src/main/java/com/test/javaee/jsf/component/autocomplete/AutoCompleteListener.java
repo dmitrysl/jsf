@@ -1,5 +1,7 @@
 package com.test.javaee.jsf.component.autocomplete;
 
+import com.test.javaee.jsf.bean.AutoCompleteItem;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
@@ -7,7 +9,7 @@ import javax.faces.component.UISelectItems;
 import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.view.facelets.FaceletContext;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,9 @@ import java.util.Map;
  */
 @ManagedBean
 @SessionScoped
-public class AutoCompleteListener {
+public class AutoCompleteListener implements Serializable {
+    private static final long serialVersionUID = 1164415438711180866L;
+
     private static final String completionItemsAttr = "completionItems";
 
     public void valueChanged(ValueChangeEvent event) {
@@ -27,7 +31,7 @@ public class AutoCompleteListener {
         if (null != listbox) {
             Map<String, Object> attrs = listbox.getAttributes();
             UISelectItems items = (UISelectItems) listbox.getChildren().get(0);
-            List<String> newItems = getNewItems((String) input.getValue(), getCompletionItems(listbox, items, attrs));
+            List<AutoCompleteItem> newItems = getNewItems((String) input.getValue(), getCompletionItems(listbox, items, attrs));
             items.setValue(newItems.toArray());
             setListboxStyle(newItems.size(), attrs);
         }
@@ -45,11 +49,11 @@ public class AutoCompleteListener {
         attrs.put("style", "display: none;");
     }
 
-    private List<String> getNewItems(String inputValue, String[] completionItems) {
-        List<String> newItems = new ArrayList<>();
+    private List<AutoCompleteItem> getNewItems(String inputValue, List<AutoCompleteItem> completionItems) {
+        List<AutoCompleteItem> newItems = new ArrayList<>();
 
-        for (String item : completionItems) {
-            String s = item.substring(0, inputValue.length());
+        for (AutoCompleteItem item : completionItems) {
+            String s = item.getName().substring(0, item.getName().length() > inputValue.length() ? inputValue.length() : item.getName().length());
             if (s.equalsIgnoreCase(inputValue)) {
                 newItems.add(item);
             }
@@ -66,10 +70,10 @@ public class AutoCompleteListener {
         }
     }
 
-    private String[] getCompletionItems(UISelectOne listbox, UISelectItems items, Map<String, Object> attrs) {
-        String[] completionItems = (String[]) attrs.get(completionItemsAttr);
+    private List<AutoCompleteItem> getCompletionItems(UISelectOne listbox, UISelectItems items, Map<String, Object> attrs) {
+        List<AutoCompleteItem> completionItems = (List<AutoCompleteItem>) attrs.get(completionItemsAttr);
         if (null == completionItems) {
-            completionItems = (String[]) items.getValue();
+            completionItems = (List<AutoCompleteItem>) items.getValue();
             attrs.put(completionItemsAttr, completionItems);
         }
         return completionItems;
