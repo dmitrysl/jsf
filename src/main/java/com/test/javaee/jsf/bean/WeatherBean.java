@@ -5,6 +5,7 @@ import com.test.javaee.jsf.ws.weather.*;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import java.util.Optional;
 
 /**
  * Created by DmitriyS on 9/20/2016.
@@ -58,7 +59,9 @@ public class WeatherBean {
             service = new Weather().getWeatherSoap();
             // weather info i.e. icon, description http://wsf.cdyne.com/WeatherWS/Weather.asmx
             weatherInfo = service.getWeatherInformation();
+            // weather for today
             weather = service.getCityWeatherByZIP(zip);
+            // weather for seven days
             forecast = service.getCityForecastByZIP(zip);
         } catch (Exception e) {
             int i = 0;
@@ -66,7 +69,11 @@ public class WeatherBean {
     }
 
     public WeatherDescription getWeatherDescription(short id) {
-        return weatherInfo.getWeatherDescription().stream().filter(weatherDescription -> weatherDescription.getWeatherID() == id).findFirst().get();
+        Optional<WeatherDescription> opt = weatherInfo.getWeatherDescription()
+                .stream()
+                .filter(weatherDescription -> weatherDescription.getWeatherID() == id)
+                .findFirst();
+        return opt.isPresent() ? opt.get() : new WeatherDescription();
     }
 
     public WeatherReturn getCityWeather() {

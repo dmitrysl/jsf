@@ -57,8 +57,6 @@ public class ExampleController implements Serializable {
     //@Inject
     private PaymentBean payment;
 
-    private WeatherSoap service;
-
     private List<Customer> customerItems;
     private PagingInfo pagingInfo;
     private Boolean isNextVisible;
@@ -104,11 +102,6 @@ public class ExampleController implements Serializable {
         WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext)
                 .getAutowireCapableBeanFactory()
                 .autowireBean(this);
-        try {
-            service = new Weather().getWeatherSoap();
-        } catch (Exception e) {
-            int i = 0;
-        }
     }
 
     @PostConstruct
@@ -151,16 +144,6 @@ public class ExampleController implements Serializable {
         ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
         handler.performNavigation("welcome");
         reset(false);
-
-        // weather info i.e. icon, description http://wsf.cdyne.com/WeatherWS/Weather.asmx
-        ArrayOfWeatherDescription weatherInfo = service.getWeatherInformation();
-
-        String zip = "90210"; // http://www.cexx.org/zipcode.htm
-        // weather for today
-        WeatherReturn weather = service.getCityWeatherByZIP(zip);
-        // weather for seven days
-        ForecastReturn forecast = service.getCityForecastByZIP(zip);
-
         getPagingInfo().nextPage();
         return "example_list";
     }
