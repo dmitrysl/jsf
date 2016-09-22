@@ -66,6 +66,14 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>rss</from-outcome>
+            <to-view-id>/pages/rss/index.xhtml</to-view-id>
+            <redirect include-view-params="true"/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/pages/example/list.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>welcome</from-outcome>

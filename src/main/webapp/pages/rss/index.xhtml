@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="/base_template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:custom="http://javaee.jsf.com">
+
+    <ui:define name="container">
+
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{rssBean.onPageLoad}"/>
+        </f:metadata>
+
+        <h1>Rss</h1>
+
+        <h:form>
+            <b:row style="margin-top: 10px;">
+                <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                    <h:commandButton styleClass="btn btn-sm btn-primary" action="welcome" value="Go to index" immediate="true" />
+                </b:column>
+            </b:row>
+        </h:form>
+
+        <b:row style="margin-top: 10px;">
+            <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+
+                <p:panel header="Habrahabr Rss" style="margin-top: 20px;">
+                    <h:panelGroup>
+                        <h:form>
+
+                            <b:row style="margin-top: 10px;">
+                                <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                                    <ui:repeat value="#{rssBean.rss.channels}" var="channel">
+
+                                        <h3>#{channel.description}</h3>
+                                        <h:outputLink value="#{channel.link}">
+                                            <h:graphicImage url="#{channel.image.url}" />
+                                        </h:outputLink>
+
+                                        <ui:repeat value="#{channel.items}" var="item">
+                                            <b:row style="margin: 10px 0px;">
+                                                <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                                                    <h4>#{item.title}</h4>
+                                                    <p>#{item.description}</p>
+                                                    <!--<div>#{item.link}</div>-->
+                                                    <!--<div>#{item.guid}</div>-->
+                                                    <h:outputLink value="#{item.link}" title="View Post" target="blank" style="color: blue;">
+                                                        <h:outputText value="View Post" />
+                                                    </h:outputLink>
+                                                </b:column>
+                                            </b:row>
+                                        </ui:repeat>
+                                    </ui:repeat>
+                                </b:column>
+                            </b:row>
+
+                        </h:form>
+                    </h:panelGroup>
+                </p:panel>
+
+            </b:column>
+        </b:row>
+
+        <h:form>
+            <b:row style="margin-top: 10px;">
+                <b:column colLg="12" colMd="12" colSm="12" colXs="12">
+                    <h:commandButton styleClass="btn btn-sm btn-primary" action="welcome" value="Go to index" immediate="true" />
+                </b:column>
+            </b:row>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

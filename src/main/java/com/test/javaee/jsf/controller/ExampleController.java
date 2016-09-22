@@ -3,6 +3,8 @@ package com.test.javaee.jsf.controller;
 import com.test.javaee.jsf.bean.PaymentBean;
 import com.test.javaee.jsf.model.ExampleModel;
 import com.test.javaee.jsf.model.User;
+import com.test.javaee.jsf.rss.habrahabr.model.Rss;
+import com.test.javaee.jsf.rss.habrahabr.reader.RssReaderImpl;
 import com.test.javaee.jsf.service.UserService;
 import com.test.javaee.jsf.util.PagingInfo;
 import com.test.javaee.jsf.ws.weather.*;
@@ -32,6 +34,7 @@ import java.util.*;
 
 /**
  * Created by DmitriyS on 8/30/2016.
+ *
  */
 @ManagedBean(name = "exampleCtrl")
 @SessionScoped
@@ -140,6 +143,10 @@ public class ExampleController implements Serializable {
         return "weather";
     }
 
+    public String showRssChannel() {
+        return "rss";
+    }
+
     public String next() {
         ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
         handler.performNavigation("welcome");
@@ -175,6 +182,7 @@ public class ExampleController implements Serializable {
 
         return customersDb.subList(offset, offset+limit);
     }
+
     private int getCustomerCount() {
         return 100;
     }
